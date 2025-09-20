@@ -1,4 +1,4 @@
-const greeting = document.getElementById('greeting');
+const greetingContainer = document.getElementById('greeting');
 const textInput = document.getElementById('text-input');
 
 const allWords = [
@@ -11,26 +11,68 @@ const allWords = [
 
 let words = [];
 let currentWordIndex = 0;
+let typedCharacterIndex = 0;
+
+function renderWord() {
+    greetingContainer.innerHTML = '';
+    const currentWord = words[currentWordIndex];
+
+    currentWord.split('').forEach((char, index) => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.classList.add('letter');
+
+        if (index < typedCharacterIndex) {
+            if (textInput.value[index] === char) {
+                span.classList.add('correct');
+            } else {
+                span.classList.add('incorrect');
+            }
+        } else if (index === typedCharacterIndex) {
+            span.classList.add('current-letter');
+        }
+        greetingContainer.appendChild(span);
+    });
+}
 
 function initializeWords() {
-    // Shuffle allWords and pick 10 unique words
     const shuffled = allWords.sort(() => 0.5 - Math.random());
     words = shuffled.slice(0, 10);
     currentWordIndex = 0;
-    greeting.textContent = words[currentWordIndex];
+    typedCharacterIndex = 0;
+    textInput.value = '';
+    renderWord();
 }
 
-// Initialize with the first set of words
 initializeWords();
 
 textInput.addEventListener('input', () => {
-    if (textInput.value === words[currentWordIndex]) {
+    const currentWord = words[currentWordIndex];
+    const typedValue = textInput.value;
+
+    typedCharacterIndex = typedValue.length;
+
+    if (typedValue === currentWord) {
         currentWordIndex++;
         if (currentWordIndex >= words.length) {
-            // All words in the current set typed, re-initialize for a new set
             initializeWords();
+        } else {
+            typedCharacterIndex = 0;
+            textInput.value = '';
+            renderWord();
         }
-        greeting.textContent = words[currentWordIndex];
-        textInput.value = ''; // Clear the input field
+    } else {
+        renderWord();
     }
+});
+
+textInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        initializeWords();
+    }
+});
+
+window.addEventListener('load', () => {
+    textInput.focus();
 });

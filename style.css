@@ -2,9 +2,59 @@ body {
     margin: 0;
     overflow: hidden;
     background-color: #330033;
+    display: flex; /* Use flexbox for centering */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    flex-direction: column; /* Stack elements vertically */
 }
 
-h1 {
-    color: white;
-    font-family: sans-serif;
+#typing-container {
+    position: relative;
+    display: inline-block; /* Shrink to content size */
+}
+
+#greeting {
+    font-size: 3em;
+    font-family: monospace;
+    color: #666; /* Default color for untyped letters */
+    /* margin-bottom: 20px; */ /* Removed to bring input closer */
+    white-space: nowrap; /* Prevent word wrapping */
+}
+
+.letter {
+    display: inline-block; /* Allows individual styling and spacing */
+    transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
+}
+
+.correct {
+    color: #eee; /* Brighter for correct letters */
+}
+
+.incorrect {
+    color: #eee;
+    background-color: #a00; /* Red background for incorrect letters */
+}
+
+.current-letter {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+#text-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    color: transparent; /* Hide typed text */
+    font-size: 3em; /* Match greeting font size */
+    font-family: monospace;
+    padding: 0; /* Remove padding */
+    text-align: left; /* Align with word */
+    outline: none;
+    caret-color: white; /* Make cursor visible */
+    z-index: 1; /* Ensure input is above greeting */
 }
