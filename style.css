@@ -2,38 +2,46 @@ body {
     margin: 0;
     overflow: hidden;
     background-color: #330033;
-    display: flex; /* Use flexbox for centering */
+    display: flex; 
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Ensure body takes full viewport height */
-    flex-direction: column; /* Stack elements vertically */
+    min-height: 100vh; 
+    flex-direction: column; 
 }
 
 #typing-container {
     position: relative;
-    display: inline-block; /* Shrink to content size */
+    display: inline-block; 
 }
 
 #greeting {
     font-size: 3em;
     font-family: monospace;
-    color: #666; /* Default color for untyped letters */
-    /* margin-bottom: 20px; */ /* Removed to bring input closer */
-    white-space: nowrap; /* Prevent word wrapping */
+    color: #666; 
+    
+    white-space: nowrap; 
+}
+
+#wpm-counter {
+    font-size: 2em;
+    color: #999;
+    font-family: monospace;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .letter {
-    display: inline-block; /* Allows individual styling and spacing */
+    display: inline-block; 
     transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
 }
 
 .correct {
-    color: #eee; /* Brighter for correct letters */
+    color: #eee; 
 }
 
 .incorrect {
     color: #eee;
-    background-color: #a00; /* Red background for incorrect letters */
+    background-color: #a00; 
 }
 
 .current-letter {
@@ -49,12 +57,36 @@ body {
     height: 100%;
     background-color: transparent;
     border: none;
-    color: transparent; /* Hide typed text */
-    font-size: 3em; /* Match greeting font size */
+    color: transparent; 
+    font-size: 3em; 
     font-family: monospace;
-    padding: 0; /* Remove padding */
-    text-align: left; /* Align with word */
+    padding: 0; 
+    text-align: left; 
     outline: none;
-    caret-color: white; /* Make cursor visible */
-    z-index: 1; /* Ensure input is above greeting */
+    caret-color: white; 
+    z-index: 1; 
+}
+
+#command-bar-container {
+    display: none; 
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+#command-bar-container.visible {
+    display: block;
+}
+
+#command-input {
+    background-color: #111;
+    color: #eee;
+    border: 1px solid #999;
+    padding: 10px;
+    font-size: 1.5em;
+    font-family: monospace;
+    width: 400px;
+    outline: none;
 }
